@@ -34,7 +34,7 @@ uint32_t calculate_checksum(std::istream& file)
 		static const unsigned long checksum_pos_in_optional_headers = 64;
 		//Calculate real PE headers "CheckSum" field position
 		//Sum is safe here
-		unsigned long pe_checksum_pos = header.e_lfanew + sizeof(image_file_header) + sizeof(uint32_t) + checksum_pos_in_optional_headers;
+		long long pe_checksum_pos = header.e_lfanew + sizeof(image_file_header) + sizeof(uint32_t) + checksum_pos_in_optional_headers;
 
 		//Calculate checksum for each byte of file
 		std::streamoff filesize = pe_utils::get_file_size(file);

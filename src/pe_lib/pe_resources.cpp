@@ -356,28 +356,28 @@ const resource_directory process_resource_directory(const pe_base& pe, uint32_t 
 		resource_directory_entry entry;
 
 		//If directory is named
-		if(dir_entry.NameIsString)
+		if(dir_entry.NameEntry.NameIsString)
 		{
-			if(!pe_utils::is_sum_safe(res_rva + sizeof(uint16_t) /* safe */, dir_entry.NameOffset))
+			if(!pe_utils::is_sum_safe(res_rva + sizeof(uint16_t) /* safe */, dir_entry.NameEntry.NameOffset))
 				throw pe_exception("Incorrect resource directory", pe_exception::incorrect_resource_directory);
 
 			//get directory name length
-			uint16_t directory_name_length = pe.section_data_from_rva<uint16_t>(res_rva + dir_entry.NameOffset, section_data_virtual, true);
+			uint16_t directory_name_length = pe.section_data_from_rva<uint16_t>(res_rva + dir_entry.NameEntry.NameOffset, section_data_virtual, true);
 
 			//Check name length
-			if(pe.section_data_length_from_rva(res_rva + dir_entry.NameOffset + sizeof(uint16_t), res_rva + dir_entry.NameOffset + sizeof(uint16_t), section_data_virtual, true)
+			if(pe.section_data_length_from_rva(res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)
 				< directory_name_length)
 				throw pe_exception("Incorrect resource directory", pe_exception::incorrect_resource_directory);
 
 #ifdef PE_BLISS_WINDOWS
 			//Set entry UNICODE name
 			entry.set_name(std::wstring(
-				reinterpret_cast<const wchar_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
+				reinterpret_cast<const wchar_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
 				directory_name_length));
 #else
 			//Set entry UNICODE name
 			entry.set_name(pe_utils::from_ucs2(u16string(
-				reinterpret_cast<const unicode16_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
+				reinterpret_cast<const unicode16_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
 				directory_name_length)));
 #endif
 		}
@@ -388,9 +388,9 @@ const resource_directory process_resource_directory(const pe_base& pe, uint32_t 
 		}
 
 		//If directory entry has another resource directory
-		if(dir_entry.DataIsDirectory)
+		if(dir_entry.DirEntry.DataIsDirectory)
 		{
-			entry.add_resource_directory(process_resource_directory(pe, res_rva, dir_entry.OffsetToDirectory, processed));
+			entry.add_resource_directory(process_resource_directory(pe, res_rva, dir_entry.DirEntry.OffsetToDirectory, processed));
 		}
 		else
 		{
