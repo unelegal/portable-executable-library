@@ -225,7 +225,7 @@ const file_version_info resource_version_info_reader::get_version_info(lang_stri
 						throw_incorrect_version_info();
 
 					//Get list of translations: pairs of LANGUAGE_ID - CODEPAGE_ID
-					for(unsigned long i = 0; i < var_table->ValueLength; i += sizeof(uint16_t) * 2)
+					for(uint32_t i = 0; i < var_table->ValueLength; i += sizeof(uint16_t) * 2)
 					{
 						//Pair of WORDs
 						uint16_t lang_id = *reinterpret_cast<const uint16_t*>(resource_data.data() + value_pos + i);

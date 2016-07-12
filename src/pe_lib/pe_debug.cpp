@@ -612,7 +612,7 @@ const debug_info_list get_debug_information(const pe_base& pe)
 		< sizeof(image_debug_directory))
 		throw pe_exception("Incorrect debug directory", pe_exception::incorrect_debug_directory);
 
-	unsigned long current_pos = pe.get_directory_rva(image_directory_entry_debug);
+	uint32_t current_pos = pe.get_directory_rva(image_directory_entry_debug);
 
 	//First IMAGE_DEBUG_DIRECTORY table
 	image_debug_directory directory = pe.section_data_from_rva<image_debug_directory>(current_pos, section_data_virtual, true);

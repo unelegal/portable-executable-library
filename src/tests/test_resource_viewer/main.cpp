@@ -3,9 +3,6 @@
 #include <pe_bliss.h>
 #include <pe_bliss_resources.h>
 #include "test.h"
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 

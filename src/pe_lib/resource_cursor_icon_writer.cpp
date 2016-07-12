@@ -19,7 +19,7 @@ void resource_cursor_icon_writer::add_icon(const std::string& icon_file, const r
 
 	const ico_header* icon_header = reinterpret_cast<const ico_header*>(&icon_file[0]);
 
-	unsigned long size_of_headers = sizeof(ico_header) + icon_header->Count * sizeof(icondirentry);
+	uint32_t size_of_headers = sizeof(ico_header) + icon_header->Count * sizeof(icondirentry);
 	if(icon_file.length() < size_of_headers || icon_header->Count == 0)
 		throw pe_exception("Incorrect resource icon", pe_exception::resource_incorrect_icon);
 
@@ -175,7 +175,7 @@ void resource_cursor_icon_writer::add_cursor(const std::string& cursor_file, con
 
 	const cursor_header* cur_header = reinterpret_cast<const cursor_header*>(&cursor_file[0]);
 
-	unsigned long size_of_headers = sizeof(cursor_header) + cur_header->Count * sizeof(cursordirentry);
+	uint32_t size_of_headers = sizeof(cursor_header) + cur_header->Count * sizeof(cursordirentry);
 	if(cursor_file.length() < size_of_headers || cur_header->Count == 0)
 		throw pe_exception("Incorrect resource cursor", pe_exception::resource_incorrect_cursor);
 

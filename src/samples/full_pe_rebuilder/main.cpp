@@ -2,9 +2,6 @@
 #include <fstream>
 #include <sstream>
 #include <pe_bliss.h>
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 
@@ -53,7 +50,7 @@ int main(int argc, char* argv[])
 			new_image->set_subsystem(image.get_subsystem());
 
 			//Копируем все существующие директории
-			for(unsigned long i = 0; i < image.get_number_of_rvas_and_sizes(); ++i)
+			for(uint32_t i = 0; i < image.get_number_of_rvas_and_sizes(); ++i)
 			{
 				new_image->set_directory_rva(i, image.get_directory_rva(i));
 				new_image->set_directory_size(i, image.get_directory_size(i));

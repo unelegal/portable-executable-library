@@ -2,9 +2,6 @@
 #include <fstream>
 #include <pe_bliss.h>
 #include "test.h"
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 

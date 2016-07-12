@@ -3,13 +3,10 @@
 #include <pe_bliss.h>
 #define PE_FILES_UNUSED
 #include "test.h"
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 
-int main(int argc, char* argv[])
+int main(int /*argc*/, char* argv[])
 {
 	PE_TEST_START
 

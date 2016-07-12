@@ -14,7 +14,7 @@ namespace pe_bliss
 	typedef unsigned int uint32_t;
 
 	typedef long long int64_t;
-	typedef unsigned long long uint64_t;
+	typedef uint32_t long uint64_t;
 }
 #else
 #include <stdint.h>

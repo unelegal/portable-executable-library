@@ -1,9 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <pe_bliss.h>
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 
@@ -50,13 +47,13 @@ int main(int argc, char* argv[])
 
 			//Выведем информацию
 			std::cout << "Addresses: [" << entry.get_begin_address() << ":" << entry.get_end_address() << "]:" << std::endl
-				<< "Flags: " << static_cast<unsigned long>(entry.get_flags()) << std::endl
-				<< "Frame pointer register number: " << static_cast<unsigned long>(entry.get_frame_pointer_register_number()) << std::endl
-				<< "Number of unwind slots: " << static_cast<unsigned long>(entry.get_number_of_unwind_slots()) << std::endl
-				<< "Scaled RSP offset: " << static_cast<unsigned long>(entry.get_scaled_rsp_offset()) << std::endl
-				<< "Size of prolog: " << static_cast<unsigned long>(entry.get_size_of_prolog()) << std::endl
+				<< "Flags: " << static_cast<uint32_t>(entry.get_flags()) << std::endl
+				<< "Frame pointer register number: " << static_cast<uint32_t>(entry.get_frame_pointer_register_number()) << std::endl
+				<< "Number of unwind slots: " << static_cast<uint32_t>(entry.get_number_of_unwind_slots()) << std::endl
+				<< "Scaled RSP offset: " << static_cast<uint32_t>(entry.get_scaled_rsp_offset()) << std::endl
+				<< "Size of prolog: " << static_cast<uint32_t>(entry.get_size_of_prolog()) << std::endl
 				<< "Unwind info address: " << entry.get_unwind_info_address() << std::endl
-				<< "Unwind info version: " << static_cast<unsigned long>(entry.get_unwind_info_version()) << std::endl
+				<< "Unwind info version: " << static_cast<uint32_t>(entry.get_unwind_info_version()) << std::endl
 				<< std::endl;
 		}
 	}

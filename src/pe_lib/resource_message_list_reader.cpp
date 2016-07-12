@@ -27,7 +27,7 @@ const resource_message_list resource_message_list_reader::parse_message_list(con
 		throw pe_exception("Incorrect resource message table", pe_exception::resource_incorrect_message_table);
 
 	//Iterate over all message resource blocks
-	for(unsigned long i = 0; i != message_data->NumberOfBlocks; ++i)
+	for(uint32_t i = 0; i != message_data->NumberOfBlocks; ++i)
 	{
 		//Get block
 		const message_resource_block* block =
@@ -37,8 +37,8 @@ const resource_message_list resource_message_list_reader::parse_message_list(con
 		if(resource_data.length() < block->OffsetToEntries || block->LowId > block->HighId)
 			throw pe_exception("Incorrect resource message table", pe_exception::resource_incorrect_message_table);
 
-		unsigned long current_pos = 0;
-		static const unsigned long size_of_entry_headers = 4;
+		uint32_t current_pos = 0;
+		static const uint32_t size_of_entry_headers = 4;
 		//List all message resource entries in block
 		for(uint32_t curr_id = block->LowId; curr_id <= block->HighId; curr_id++)
 		{

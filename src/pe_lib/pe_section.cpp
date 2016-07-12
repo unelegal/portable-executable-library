@@ -1,4 +1,5 @@
 #include <string.h>
+#include <algorithm>
 #include "utils.h"
 #include "pe_section.h"
 

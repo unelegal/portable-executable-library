@@ -114,9 +114,9 @@ const pe_resource_viewer::resource_id_list pe_resource_viewer::list_resource_ids
 }
 
 //Returns resource count by type
-unsigned long pe_resource_viewer::get_resource_count(resource_type type) const
+uint32_t pe_resource_viewer::get_resource_count(resource_type type) const
 {
-	return static_cast<unsigned long>(
+	return static_cast<uint32_t>(
 		root_dir_ //Type directory
 		.entry_by_id(type)
 		.get_resource_directory() //Name/ID directory
@@ -125,9 +125,9 @@ unsigned long pe_resource_viewer::get_resource_count(resource_type type) const
 }
 
 //Returns resource count by name
-unsigned long pe_resource_viewer::get_resource_count(const std::wstring& root_name) const
+uint32_t pe_resource_viewer::get_resource_count(const std::wstring& root_name) const
 {
-	return static_cast<unsigned long>(
+	return static_cast<uint32_t>(
 		root_dir_ //Type directory
 		.entry_by_name(root_name)
 		.get_resource_directory() //Name/ID directory
@@ -136,7 +136,7 @@ unsigned long pe_resource_viewer::get_resource_count(const std::wstring& root_na
 }
 
 //Returns language count of resource by resource type and name
-unsigned long pe_resource_viewer::get_language_count(resource_type type, const std::wstring& name) const
+uint32_t pe_resource_viewer::get_language_count(resource_type type, const std::wstring& name) const
 {
 	const resource_directory::entry_list& entries =
 		root_dir_ //Type directory
@@ -146,11 +146,11 @@ unsigned long pe_resource_viewer::get_language_count(resource_type type, const s
 		.get_resource_directory() //Language directory
 		.get_entry_list();
 
-	return static_cast<unsigned long>(std::count_if(entries.begin(), entries.end(), has_id()));
+	return static_cast<uint32_t>(std::count_if(entries.begin(), entries.end(), has_id()));
 }
 
 //Returns language count of resource by resource names
-unsigned long pe_resource_viewer::get_language_count(const std::wstring& root_name, const std::wstring& name) const
+uint32_t pe_resource_viewer::get_language_count(const std::wstring& root_name, const std::wstring& name) const
 {
 	const resource_directory::entry_list& entries =
 		root_dir_ //Type directory
@@ -160,11 +160,11 @@ unsigned long pe_resource_viewer::get_language_count(const std::wstring& root_na
 		.get_resource_directory() //Language directory
 		.get_entry_list();
 
-	return static_cast<unsigned long>(std::count_if(entries.begin(), entries.end(), has_id()));
+	return static_cast<uint32_t>(std::count_if(entries.begin(), entries.end(), has_id()));
 }
 
 //Returns language count of resource by resource type and ID
-unsigned long pe_resource_viewer::get_language_count(resource_type type, uint32_t id) const
+uint32_t pe_resource_viewer::get_language_count(resource_type type, uint32_t id) const
 {
 	const resource_directory::entry_list& entries =
 		root_dir_ //Type directory
@@ -174,11 +174,11 @@ unsigned long pe_resource_viewer::get_language_count(resource_type type, uint32_
 		.get_resource_directory() //Language directory
 		.get_entry_list();
 
-	return static_cast<unsigned long>(std::count_if(entries.begin(), entries.end(), has_id()));
+	return static_cast<uint32_t>(std::count_if(entries.begin(), entries.end(), has_id()));
 }
 
 //Returns language count of resource by resource name and ID
-unsigned long pe_resource_viewer::get_language_count(const std::wstring& root_name, uint32_t id) const
+uint32_t pe_resource_viewer::get_language_count(const std::wstring& root_name, uint32_t id) const
 {
 	const resource_directory::entry_list& entries =
 		root_dir_ //Type directory
@@ -188,7 +188,7 @@ unsigned long pe_resource_viewer::get_language_count(const std::wstring& root_na
 		.get_resource_directory() //Language directory
 		.get_entry_list();
 
-	return static_cast<unsigned long>(std::count_if(entries.begin(), entries.end(), has_id()));
+	return static_cast<uint32_t>(std::count_if(entries.begin(), entries.end(), has_id()));
 }
 
 //Lists resource languages by resource type and name

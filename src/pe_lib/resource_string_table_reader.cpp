@@ -25,9 +25,9 @@ const resource_string_list resource_string_table_reader::parse_string_list(uint3
 	resource_string_list ret;
 
 	//16 is maximum count of strings in a string table
-	static const unsigned long max_string_list_entries = 16;
-	unsigned long passed_bytes = 0;
-	for(unsigned long i = 0; i != max_string_list_entries; ++i)
+	static const uint32_t max_string_list_entries = 16;
+	uint32_t passed_bytes = 0;
+	for(uint32_t i = 0; i != max_string_list_entries; ++i)
 	{
 		//Check resource data length
 		if(resource_data.length() < sizeof(uint16_t) + passed_bytes)

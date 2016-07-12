@@ -645,10 +645,10 @@ uint32_t pe_base::section_data_length_from_rva(uint32_t rva, section_data_type d
 {
 	//if RVA is inside of headers and we're searching them too...
 	if(include_headers && rva < full_headers_data_.length())
-		return static_cast<unsigned long>(full_headers_data_.length());
+		return static_cast<uint32_t>(full_headers_data_.length());
 
 	const section& s = section_from_rva(rva);
-	return static_cast<unsigned long>(datatype == section_data_raw ? s.get_raw_data().length() /* instead of SizeOfRawData */ : s.get_aligned_virtual_size(get_section_alignment()));
+	return static_cast<uint32_t>(datatype == section_data_raw ? s.get_raw_data().length() /* instead of SizeOfRawData */ : s.get_aligned_virtual_size(get_section_alignment()));
 }
 
 //Returns section TOTAL RAW/VIRTUAL data length from VA inside section for PE32
@@ -668,7 +668,7 @@ uint32_t pe_base::section_data_length_from_rva(uint32_t rva, uint32_t rva_inside
 {
 	//if RVAs are inside of headers and we're searching them too...
 	if(include_headers && rva < full_headers_data_.length() && rva_inside < full_headers_data_.length())
-		return static_cast<unsigned long>(full_headers_data_.length() - rva_inside);
+		return static_cast<uint32_t>(full_headers_data_.length() - rva_inside);
 
 	const section& s = section_from_rva(rva);
 	if(rva_inside < s.get_virtual_address())
@@ -681,7 +681,7 @@ uint32_t pe_base::section_data_length_from_rva(uint32_t rva, uint32_t rva_inside
 	if(length < 0)
 		return 0;
 
-	return static_cast<unsigned long>(length);
+	return static_cast<uint32_t>(length);
 }
 
 //Returns section remaining RAW/VIRTUAL data length from VA "va_inside" to the end of section containing VA "va" for PE32
@@ -969,7 +969,7 @@ void pe_base::read_pe(std::istream& file, bool read_debug_raw_data)
 			if(section_data_length_from_rva(get_directory_rva(image_directory_entry_debug), get_directory_rva(image_directory_entry_debug), section_data_virtual, true) < sizeof(image_debug_directory))
 				break;
 
-			unsigned long current_pos = get_directory_rva(image_directory_entry_debug);
+			uint32_t current_pos = get_directory_rva(image_directory_entry_debug);
 
 			//First IMAGE_DEBUG_DIRECTORY table
 			image_debug_directory directory = section_data_from_rva<image_debug_directory>(current_pos, section_data_virtual, true);

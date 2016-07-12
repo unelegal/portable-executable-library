@@ -346,7 +346,7 @@ const resource_directory process_resource_directory(const pe_base& pe, uint32_t 
 		|| !pe_utils::is_sum_safe(res_rva, offset_to_directory + sizeof(image_resource_directory) + (directory.NumberOfIdEntries + directory.NumberOfNamedEntries) * sizeof(image_resource_directory_entry)))
 		throw pe_exception("Incorrect resource directory", pe_exception::incorrect_resource_directory);
 
-	for(unsigned long i = 0; i != static_cast<unsigned long>(directory.NumberOfIdEntries) + directory.NumberOfNamedEntries; ++i)
+	for(uint32_t i = 0; i != static_cast<uint32_t>(directory.NumberOfIdEntries) + directory.NumberOfNamedEntries; ++i)
 	{
 		//Read directory entries one by one
 		image_resource_directory_entry dir_entry = pe.section_data_from_rva<image_resource_directory_entry>(
@@ -513,7 +513,7 @@ void rebuild_resource_directory(pe_base& pe, section& resource_section, resource
 			}
 #endif
 
-			current_strings_pos += static_cast<unsigned long>((*it).get_name().length() * sizeof(uint16_t) + sizeof(uint16_t) /* unicode */);
+			current_strings_pos += static_cast<uint32_t>((*it).get_name().length() * sizeof(uint16_t) + sizeof(uint16_t) /* unicode */);
 		}
 		else
 		{

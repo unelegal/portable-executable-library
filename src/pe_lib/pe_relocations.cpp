@@ -115,15 +115,15 @@ const relocation_table_list get_relocations(const pe_base& pe, bool list_absolut
 		< sizeof(image_base_relocation))
 		throw pe_exception("Incorrect relocation directory", pe_exception::incorrect_relocation_directory);
 
-	unsigned long current_pos = pe.get_directory_rva(image_directory_entry_basereloc);
+	uint32_t current_pos = pe.get_directory_rva(image_directory_entry_basereloc);
 	//First IMAGE_BASE_RELOCATION table
 	image_base_relocation reloc_table = pe.section_data_from_rva<image_base_relocation>(current_pos, section_data_virtual, true);
 
 	if(reloc_table.SizeOfBlock % 2)
 		throw pe_exception("Incorrect relocation directory", pe_exception::incorrect_relocation_directory);
 
-	unsigned long reloc_size = pe.get_directory_size(image_directory_entry_basereloc);
-	unsigned long read_size = 0;
+	uint32_t reloc_size = pe.get_directory_size(image_directory_entry_basereloc);
+	uint32_t read_size = 0;
 
 	//reloc_table.VirtualAddress is not checked (not so important)
 	while(reloc_table.SizeOfBlock && read_size < reloc_size)
@@ -137,7 +137,7 @@ const relocation_table_list get_relocations(const pe_base& pe, bool list_absolut
 			throw pe_exception("Incorrect relocation directory", pe_exception::incorrect_relocation_directory);
 
 		//List all relocations
-		for(unsigned long i = sizeof(image_base_relocation); i < reloc_table.SizeOfBlock; i += sizeof(uint16_t))
+		for(uint32_t i = sizeof(image_base_relocation); i < reloc_table.SizeOfBlock; i += sizeof(uint16_t))
 		{
 			relocation_entry entry(pe.section_data_from_rva<uint16_t>(current_pos + i, section_data_virtual, true));
 			if(list_absolute_entries || entry.get_type() != image_rel_based_absolute)

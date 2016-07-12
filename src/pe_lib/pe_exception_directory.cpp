@@ -124,7 +124,7 @@ const exception_entry_list get_exception_directory_data(const pe_base& pe)
 		< sizeof(image_runtime_function_entry))
 		throw pe_exception("Incorrect exception directory", pe_exception::incorrect_exception_directory);
 
-	unsigned long current_pos = pe.get_directory_rva(image_directory_entry_exception);
+	uint32_t current_pos = pe.get_directory_rva(image_directory_entry_exception);
 
 	//Check if structures are DWORD-aligned
 	if(current_pos % sizeof(uint32_t))

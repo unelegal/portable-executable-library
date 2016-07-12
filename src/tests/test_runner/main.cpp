@@ -7,15 +7,15 @@
 #include <sys/wait.h>
 #endif
 
-#define PE_TEST_32 "../pe_files/image32.exe"
-#define PE_TEST_64 "../pe_files/image64.exe"
-#define PE_TEST_DOTNET "../pe_files/TestApp.exe"
-#define PE_TEST_DEBUG "../pe_files/debug_test.exe"
-#define PE_DLL_TEST_32 "../pe_files/test_dll_32.dll"
-#define PE_DLL_TEST_64 "../pe_files/test_dll_64.dll"
-#define PE_BOUND_IMPORT_TEST_32 "../pe_files/bound32.exe"
-#define PE_BOUND_IMPORT_TEST_64 "../pe_files/bound64.exe"
-#define PE_TEST_MESSAGE_TABLE "../pe_files/message_table_resource.exe"
+#define PE_TEST_32 "../../src/tests/pe_files/image32.exe"
+#define PE_TEST_64 "../../src/tests/pe_files/image64.exe"
+#define PE_TEST_DOTNET "../../src/tests/pe_files/TestApp.exe"
+#define PE_TEST_DEBUG "../../src/tests/pe_files/debug_test.exe"
+#define PE_DLL_TEST_32 "../../src/tests/pe_files/test_dll_32.dll"
+#define PE_DLL_TEST_64 "../../src/tests/pe_files/test_dll_64.dll"
+#define PE_BOUND_IMPORT_TEST_32 "../../src/tests/pe_files/bound32.exe"
+#define PE_BOUND_IMPORT_TEST_64 "../../src/tests/pe_files/bound64.exe"
+#define PE_TEST_MESSAGE_TABLE "../../src/tests/pe_files/message_table_resource.exe"
 
 class testcase
 {

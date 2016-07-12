@@ -2,9 +2,6 @@
 #include <fstream>
 #include <pe_bliss.h>
 #include "test.h"
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 
@@ -18,7 +15,7 @@ int main(int argc, char* argv[])
 
 	pe_base image(pe_factory::create_pe(*pe_file));
 	
-	uint32_t checksum = -1;
+	uint32_t checksum = UINT32_MAX;
 	PE_TEST_EXCEPTION(checksum = calculate_checksum(*pe_file), "Checksum test 1", test_level_normal);
 	PE_TEST(image.get_checksum() == checksum, "Checksum test 2", test_level_normal);
 

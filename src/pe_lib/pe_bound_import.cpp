@@ -127,7 +127,7 @@ const bound_import_module_list get_bound_import_module_list(const pe_base& pe)
 		throw pe_exception("Incorrect bound import directory", pe_exception::incorrect_bound_import_directory);
 
 	//current bound_import_data_ in-string position
-	unsigned long current_pos = 0;
+	uint32_t current_pos = 0;
 	//first bound import descriptor
 	//so, we're working with raw data here, no section helpers available
 	const image_bound_import_descriptor* descriptor = reinterpret_cast<const image_bound_import_descriptor*>(&bound_import_data[current_pos]);
@@ -155,7 +155,7 @@ const bound_import_module_list get_bound_import_module_list(const pe_base& pe)
 		current_pos += sizeof(image_bound_import_descriptor);
 
 		//Enumerate referenced bound import descriptors
-		for(unsigned long i = 0; i != descriptor->NumberOfModuleForwarderRefs; ++i)
+		for(uint32_t i = 0; i != descriptor->NumberOfModuleForwarderRefs; ++i)
 		{
 			//They're just after parent descriptor
 			//Check size of structure

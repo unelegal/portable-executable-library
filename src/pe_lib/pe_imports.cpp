@@ -278,7 +278,7 @@ const imported_functions_list get_imported_functions_base(const pe_base& pe)
 	if(!pe.has_imports())
 		return ret;
 
-	unsigned long current_descriptor_pos = pe.get_directory_rva(image_directory_entry_import);
+	uint32_t current_descriptor_pos = pe.get_directory_rva(image_directory_entry_import);
 	//Get first IMAGE_IMPORT_DESCRIPTOR
 	image_import_descriptor import_descriptor = pe.section_data_from_rva<image_import_descriptor>(current_descriptor_pos, section_data_virtual, true);
 
@@ -290,7 +290,7 @@ const imported_functions_list get_imported_functions_base(const pe_base& pe)
 		//Get imported library information
 		import_library lib;
 
-		unsigned long max_name_length;
+		uint32_t max_name_length;
 		//Get byte count that we have for library name
 		if((max_name_length = pe.section_data_length_from_rva(import_descriptor.Name, import_descriptor.Name, section_data_virtual, true)) < 2)
 			throw pe_exception("Incorrect import directory", pe_exception::incorrect_import_directory);

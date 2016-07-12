@@ -364,7 +364,7 @@ const image_config_info get_image_config_base(const pe_base& pe)
 	if(config_info.LockPrefixTable)
 	{
 		//Read Lock Prefix VA list (if any)
-		unsigned long current = 0;
+		uint32_t current = 0;
 		while(true)
 		{
 			typename PEClassType::BaseSize lock_prefix_va = pe.section_data_from_va<typename PEClassType::BaseSize>(static_cast<typename PEClassType::BaseSize>(config_info.LockPrefixTable + current * sizeof(typename PEClassType::BaseSize)));

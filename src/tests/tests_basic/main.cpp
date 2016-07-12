@@ -2,9 +2,6 @@
 #include <fstream>
 #include <pe_bliss.h>
 #include "test.h"
-#ifdef PE_BLISS_WINDOWS
-#include "lib.h"
-#endif
 
 using namespace pe_bliss;
 
@@ -391,7 +388,7 @@ int main(int argc, char* argv[])
 		PE_TEST(s.get_virtual_size() == pe_utils::align_up(s.get_size_of_raw_data(), image->get_file_alignment()), "Prepare Section test 3", test_level_normal);
 
 		uint16_t old_sections_count = image->get_number_of_sections();
-		uint16_t old_size_of_image = image->get_size_of_image();
+		uint32_t old_size_of_image = image->get_size_of_image();
 		PE_TEST_EXCEPTION(image->add_section(s), "Add section test 1", test_level_normal);
 		PE_TEST(image->get_number_of_sections() == old_sections_count + 1, "Add section test 2", test_level_normal);
 		PE_TEST(image->get_image_sections().back().get_raw_data() == "123", "Add section test 3", test_level_normal);

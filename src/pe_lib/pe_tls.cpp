@@ -295,8 +295,8 @@ const image_directory rebuild_tls_base(pe_base& pe, const tls_info& info, sectio
 			//If no section is presented by StartAddressOfRawData, just go to next step
 		}
 
-		unsigned long write_raw_data_size = info.get_raw_data_end_rva() - info.get_raw_data_start_rva();
-		unsigned long available_raw_length = 0;
+		uint32_t write_raw_data_size = info.get_raw_data_end_rva() - info.get_raw_data_start_rva();
+		uint32_t available_raw_length = 0;
 
 		//Check if there's enough RAW space to write raw TLS data...
 		if((available_raw_length = pe.section_data_length_from_rva(info.get_raw_data_start_rva(), info.get_raw_data_start_rva(), section_data_raw, true))
@@ -318,7 +318,7 @@ const image_directory rebuild_tls_base(pe_base& pe, const tls_info& info, sectio
 	//If we are asked to rewrite TLS callbacks addresses
 	if(write_tls_callbacks && info.get_callbacks_rva())
 	{
-		unsigned long needed_callback_size = static_cast<unsigned long>((info.get_tls_callbacks().size() + 1 /* last null element */) * sizeof(typename PEClassType::BaseSize));
+		uint32_t needed_callback_size = static_cast<uint32_t>((info.get_tls_callbacks().size() + 1 /* last null element */) * sizeof(typename PEClassType::BaseSize));
 
 		try
 		{

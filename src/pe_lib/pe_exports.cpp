@@ -271,7 +271,7 @@ const exported_functions_list get_exported_functions(const pe_base& pe, export_i
 
 		image_export_directory exports = pe.section_data_from_rva<image_export_directory>(pe.get_directory_rva(image_directory_entry_export), section_data_virtual, true);
 
-		unsigned long max_name_length;
+		uint32_t max_name_length;
 
 		if(info)
 		{
