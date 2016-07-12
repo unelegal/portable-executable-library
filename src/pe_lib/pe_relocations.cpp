@@ -153,6 +153,9 @@ const relocation_table_list get_relocations(const pe_base& pe, bool list_absolut
 
         current_pos += reloc_table.SizeOfBlock;
         read_size += reloc_table.SizeOfBlock;
+
+        if (read_size >= reloc_size)
+            break;
         reloc_table = pe.section_data_from_rva<image_base_relocation>(current_pos, section_data_virtual, true);
     }
 
@@ -196,7 +199,7 @@ const image_directory rebuild_relocations(pe_base& pe, const relocation_table_li
 
     //This will be done only if reloc_section is the last section of image or for section with unaligned raw length of data
     if(raw_data.length() < needed_size + current_reloc_data_pos)
-        raw_data.resize(needed_size + current_reloc_data_pos); //Expand section raw data
+        raw_data.resize(pe_utils::align_up(needed_size + current_reloc_data_pos, pe.get_file_alignment())); //Expand section raw data
 
     //Enumerate relocation tables
     for(relocation_table_list::const_iterator it = relocs.begin(); it != relocs.end(); ++it)
