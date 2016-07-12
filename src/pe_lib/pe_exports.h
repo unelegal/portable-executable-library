@@ -11,122 +11,122 @@ namespace pe_bliss
 class exported_function
 {
 public:
-	//Default constructor
-	exported_function();
+    //Default constructor
+    exported_function();
 
-	//Returns ordinal of function (actually, ordinal = hint + ordinal base)
-	uint16_t get_ordinal() const;
+    //Returns ordinal of function (actually, ordinal = hint + ordinal base)
+    uint16_t get_ordinal() const;
 
-	//Returns RVA of function
-	uint32_t get_rva() const;
+    //Returns RVA of function
+    uint32_t get_rva() const;
 
-	//Returns true if function has name and name ordinal
-	bool has_name() const;
-	//Returns name of function
-	const std::string& get_name() const;
-	//Returns name ordinal of function
-	uint16_t get_name_ordinal() const;
+    //Returns true if function has name and name ordinal
+    bool has_name() const;
+    //Returns name of function
+    const std::string& get_name() const;
+    //Returns name ordinal of function
+    uint16_t get_name_ordinal() const;
 
-	//Returns true if function is forwarded to other library
-	bool is_forwarded() const;
-	//Returns the name of forwarded function
-	const std::string& get_forwarded_name() const;
+    //Returns true if function is forwarded to other library
+    bool is_forwarded() const;
+    //Returns the name of forwarded function
+    const std::string& get_forwarded_name() const;
 
 public: //Setters do not change everything inside image, they are used by PE class
-	//You can also use them to rebuild export directory
+    //You can also use them to rebuild export directory
 
-	//Sets ordinal of function
-	void set_ordinal(uint16_t ordinal);
+    //Sets ordinal of function
+    void set_ordinal(uint16_t ordinal);
 
-	//Sets RVA of function
-	void set_rva(uint32_t rva);
+    //Sets RVA of function
+    void set_rva(uint32_t rva);
 
-	//Sets name of function (or clears it, if empty name is passed)
-	void set_name(const std::string& name);
-	//Sets name ordinal
-	void set_name_ordinal(uint16_t name_ordinal);
+    //Sets name of function (or clears it, if empty name is passed)
+    void set_name(const std::string& name);
+    //Sets name ordinal
+    void set_name_ordinal(uint16_t name_ordinal);
 
-	//Sets forwarded function name (or clears it, if empty name is passed)
-	void set_forwarded_name(const std::string& name);
+    //Sets forwarded function name (or clears it, if empty name is passed)
+    void set_forwarded_name(const std::string& name);
 
 private:
-	uint16_t ordinal_; //Function ordinal
-	uint32_t rva_; //Function RVA
-	std::string name_; //Function name
-	bool has_name_; //true == function has name
-	uint16_t name_ordinal_; //Function name ordinal
-	bool forward_; //true == function is forwarded
-	std::string forward_name_; //Name of forwarded function
+    uint16_t ordinal_; //Function ordinal
+    uint32_t rva_; //Function RVA
+    std::string name_; //Function name
+    bool has_name_; //true == function has name
+    uint16_t name_ordinal_; //Function name ordinal
+    bool forward_; //true == function is forwarded
+    std::string forward_name_; //Name of forwarded function
 };
 
 //Class representing export information
 class export_info
 {
 public:
-	//Default constructor
-	export_info();
+    //Default constructor
+    export_info();
 
-	//Returns characteristics
-	uint32_t get_characteristics() const;
-	//Returns timestamp
-	uint32_t get_timestamp() const;
-	//Returns major version
-	uint16_t get_major_version() const;
-	//Returns minor version
-	uint16_t get_minor_version() const;
-	//Returns DLL name
-	const std::string& get_name() const;
-	//Returns ordinal base
-	uint32_t get_ordinal_base() const;
-	//Returns number of functions
-	uint32_t get_number_of_functions() const;
-	//Returns number of function names
-	uint32_t get_number_of_names() const;
-	//Returns RVA of function address table
-	uint32_t get_rva_of_functions() const;
-	//Returns RVA of function name address table
-	uint32_t get_rva_of_names() const;
-	//Returns RVA of name ordinals table
-	uint32_t get_rva_of_name_ordinals() const;
+    //Returns characteristics
+    uint32_t get_characteristics() const;
+    //Returns timestamp
+    uint32_t get_timestamp() const;
+    //Returns major version
+    uint16_t get_major_version() const;
+    //Returns minor version
+    uint16_t get_minor_version() const;
+    //Returns DLL name
+    const std::string& get_name() const;
+    //Returns ordinal base
+    uint32_t get_ordinal_base() const;
+    //Returns number of functions
+    uint32_t get_number_of_functions() const;
+    //Returns number of function names
+    uint32_t get_number_of_names() const;
+    //Returns RVA of function address table
+    uint32_t get_rva_of_functions() const;
+    //Returns RVA of function name address table
+    uint32_t get_rva_of_names() const;
+    //Returns RVA of name ordinals table
+    uint32_t get_rva_of_name_ordinals() const;
 
 public: //Setters do not change everything inside image, they are used by PE class
-	//You can also use them to rebuild export directory using rebuild_exports
+    //You can also use them to rebuild export directory using rebuild_exports
 
-	//Sets characteristics
-	void set_characteristics(uint32_t characteristics);
-	//Sets timestamp
-	void set_timestamp(uint32_t timestamp);
-	//Sets major version
-	void set_major_version(uint16_t major_version);
-	//Sets minor version
-	void set_minor_version(uint16_t minor_version);
-	//Sets DLL name
-	void set_name(const std::string& name);
-	//Sets ordinal base
-	void set_ordinal_base(uint32_t ordinal_base);
-	//Sets number of functions
-	void set_number_of_functions(uint32_t number_of_functions);
-	//Sets number of function names
-	void set_number_of_names(uint32_t number_of_names);
-	//Sets RVA of function address table
-	void set_rva_of_functions(uint32_t rva_of_functions);
-	//Sets RVA of function name address table
-	void set_rva_of_names(uint32_t rva_of_names);
-	//Sets RVA of name ordinals table
-	void set_rva_of_name_ordinals(uint32_t rva_of_name_ordinals);
+    //Sets characteristics
+    void set_characteristics(uint32_t characteristics);
+    //Sets timestamp
+    void set_timestamp(uint32_t timestamp);
+    //Sets major version
+    void set_major_version(uint16_t major_version);
+    //Sets minor version
+    void set_minor_version(uint16_t minor_version);
+    //Sets DLL name
+    void set_name(const std::string& name);
+    //Sets ordinal base
+    void set_ordinal_base(uint32_t ordinal_base);
+    //Sets number of functions
+    void set_number_of_functions(uint32_t number_of_functions);
+    //Sets number of function names
+    void set_number_of_names(uint32_t number_of_names);
+    //Sets RVA of function address table
+    void set_rva_of_functions(uint32_t rva_of_functions);
+    //Sets RVA of function name address table
+    void set_rva_of_names(uint32_t rva_of_names);
+    //Sets RVA of name ordinals table
+    void set_rva_of_name_ordinals(uint32_t rva_of_name_ordinals);
 
 private:
-	uint32_t characteristics_;
-	uint32_t timestamp_;
-	uint16_t major_version_;
-	uint16_t minor_version_;
-	std::string name_;
-	uint32_t ordinal_base_;
-	uint32_t number_of_functions_;
-	uint32_t number_of_names_;
-	uint32_t address_of_functions_;
-	uint32_t address_of_names_;
-	uint32_t address_of_name_ordinals_;
+    uint32_t characteristics_;
+    uint32_t timestamp_;
+    uint16_t major_version_;
+    uint16_t minor_version_;
+    std::string name_;
+    uint32_t ordinal_base_;
+    uint32_t number_of_functions_;
+    uint32_t number_of_names_;
+    uint32_t address_of_functions_;
+    uint32_t address_of_names_;
+    uint32_t address_of_name_ordinals_;
 };
 
 //Exported functions list typedef
@@ -136,7 +136,7 @@ typedef std::vector<exported_function> exported_functions_list;
 const exported_functions_list get_exported_functions(const pe_base& pe);
 //Returns array of exported functions and information about export
 const exported_functions_list get_exported_functions(const pe_base& pe, export_info& info);
-	
+    
 //Helper export functions
 //Returns pair: <ordinal base for supplied functions; maximum ordinal value for supplied functions>
 const std::pair<uint16_t, uint16_t> get_export_ordinal_limits(const exported_functions_list& exports);

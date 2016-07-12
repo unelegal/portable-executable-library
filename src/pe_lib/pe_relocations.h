@@ -12,67 +12,67 @@ namespace pe_bliss
 class relocation_entry
 {
 public:
-	//Default constructor
-	relocation_entry();
-	//Constructor from relocation item (WORD)
-	explicit relocation_entry(uint16_t relocation_value);
-	//Constructor from relative rva and relocation type
-	relocation_entry(uint16_t rrva, uint16_t type);
+    //Default constructor
+    relocation_entry();
+    //Constructor from relocation item (WORD)
+    explicit relocation_entry(uint16_t relocation_value);
+    //Constructor from relative rva and relocation type
+    relocation_entry(uint16_t rrva, uint16_t type);
 
-	//Returns RVA of relocation (actually, relative RVA from relocation table RVA)
-	uint16_t get_rva() const;
-	//Returns type of relocation
-	uint16_t get_type() const;
+    //Returns RVA of relocation (actually, relative RVA from relocation table RVA)
+    uint16_t get_rva() const;
+    //Returns type of relocation
+    uint16_t get_type() const;
 
-	//Returns relocation item (rrva + type)
-	uint16_t get_item() const;
+    //Returns relocation item (rrva + type)
+    uint16_t get_item() const;
 
 public: //Setters do not change everything inside image, they are used by PE class
-	//You can also use them to rebuild relocations using rebuild_relocations()
+    //You can also use them to rebuild relocations using rebuild_relocations()
 
-	//Sets RVA of relocation (actually, relative RVA from relocation table RVA)
-	void set_rva(uint16_t rva);
-	//Sets type of relocation
-	void set_type(uint16_t type);
-		
-	//Sets relocation item (rrva + type)
-	void set_item(uint16_t item);
+    //Sets RVA of relocation (actually, relative RVA from relocation table RVA)
+    void set_rva(uint16_t rva);
+    //Sets type of relocation
+    void set_type(uint16_t type);
+        
+    //Sets relocation item (rrva + type)
+    void set_item(uint16_t item);
 
 private:
-	uint16_t rva_;
-	uint16_t type_;
+    uint16_t rva_;
+    uint16_t type_;
 };
 
 //Class representing relocation table
 class relocation_table
 {
 public:
-	typedef std::vector<relocation_entry> relocation_list;
+    typedef std::vector<relocation_entry> relocation_list;
 
 public:
-	//Default constructor
-	relocation_table();
-	//Constructor from RVA of relocation table
-	explicit relocation_table(uint32_t rva);
+    //Default constructor
+    relocation_table();
+    //Constructor from RVA of relocation table
+    explicit relocation_table(uint32_t rva);
 
-	//Returns relocation list
-	const relocation_list& get_relocations() const;
-	//Returns RVA of block
-	uint32_t get_rva() const;
+    //Returns relocation list
+    const relocation_list& get_relocations() const;
+    //Returns RVA of block
+    uint32_t get_rva() const;
 
 public: //These functions do not change everything inside image, they are used by PE class
-	//You can also use them to rebuild relocations using rebuild_relocations()
+    //You can also use them to rebuild relocations using rebuild_relocations()
 
-	//Adds relocation to table
-	void add_relocation(const relocation_entry& entry);
-	//Returns changeable relocation list
-	relocation_list& get_relocations();
-	//Sets RVA of block
-	void set_rva(uint32_t rva);
+    //Adds relocation to table
+    void add_relocation(const relocation_entry& entry);
+    //Returns changeable relocation list
+    relocation_list& get_relocations();
+    //Sets RVA of block
+    void set_rva(uint32_t rva);
 
 private:
-	uint32_t rva_;
-	relocation_list relocations_;
+    uint32_t rva_;
+    relocation_list relocations_;
 };
 
 typedef std::vector<relocation_table> relocation_table_list;

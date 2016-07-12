@@ -7,19 +7,19 @@ using namespace pe_bliss;
 
 int main(int argc, char* argv[])
 {
-	PE_TEST_START
-		
-	std::unique_ptr<std::ifstream> pe_file;
-	if(!open_pe_file(argc, argv, pe_file))
-		return -1;
+    PE_TEST_START
+        
+    std::unique_ptr<std::ifstream> pe_file;
+    if(!open_pe_file(argc, argv, pe_file))
+        return -1;
 
-	pe_base image(pe_factory::create_pe(*pe_file));
-	
-	uint32_t checksum = UINT32_MAX;
-	PE_TEST_EXCEPTION(checksum = calculate_checksum(*pe_file), "Checksum test 1", test_level_normal);
-	PE_TEST(image.get_checksum() == checksum, "Checksum test 2", test_level_normal);
+    pe_base image(pe_factory::create_pe(*pe_file));
+    
+    uint32_t checksum = UINT32_MAX;
+    PE_TEST_EXCEPTION(checksum = calculate_checksum(*pe_file), "Checksum test 1", test_level_normal);
+    PE_TEST(image.get_checksum() == checksum, "Checksum test 2", test_level_normal);
 
-	PE_TEST_END
+    PE_TEST_END
 
-	return 0;
+    return 0;
 }
