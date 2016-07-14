@@ -906,7 +906,7 @@ void pe_base::read_pe(std::istream& file, bool read_debug_raw_data)
             {
                 adress_of_section = s.get_virtual_address();
                 size_of_section = s.get_virtual_size();
-        	    alignment = get_section_alignment();
+                alignment = get_section_alignment();
             }
             else
             {
