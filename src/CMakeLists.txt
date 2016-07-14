@@ -17,6 +17,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")
 
 set(COMPONENTS pe_lib tests samples)
 
+enable_testing()
+
 foreach (COMPONENT ${COMPONENTS})
     add_subdirectory(${COMPONENT})
 endforeach ()

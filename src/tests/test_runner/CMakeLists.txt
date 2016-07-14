@@ -10,3 +10,4 @@ target_include_directories(${PROJECT} PRIVATE ${pe_lib_SOURCE_DIR} ${CMAKE_SOURC
     
 target_link_libraries(${PROJECT} PRIVATE pe_lib)
 
+add_test(${PROJECT} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT})

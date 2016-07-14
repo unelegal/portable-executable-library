@@ -196,17 +196,19 @@ int main(int argc, char* argv[])
         if(!result)
         {
             std::cerr << "Some tests hard-failed in this testsuite, exiting..." << std::endl;
-            return -1;
+            return 2;
         }
 
         std::cout << std::endl;
     }
 
     if(warnings_occured)
+	{
         std::cout << "Some tests failed, check the log!" << std::endl;
-    else
-        std::cout << "Everything went just fine!" << std::endl;
+        return 2;
+	}
 
-    std::cout << "Finished." << std::endl;
-    return 0;
+	std::cout << "Everything went just fine!" << std::endl;
+	std::cout << "Finished." << std::endl;
+	return 0;
 }

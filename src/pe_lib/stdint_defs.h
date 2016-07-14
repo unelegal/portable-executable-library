@@ -1,6 +1,5 @@
 #pragma once
-#ifdef _MSC_VER
-#if _MSC_VER < 1600
+#if defined(_MSC_VER) && _MSC_VER < 1600
 namespace pe_bliss
 {
     //stdint.h definitions for MSVC 2008 and earlier, as
@@ -16,9 +15,6 @@ namespace pe_bliss
     typedef long long int64_t;
     typedef unsigned long long uint64_t;
 }
-#else
-#include <stdint.h>
-#endif
 #else
 #include <stdint.h>
 #endif
