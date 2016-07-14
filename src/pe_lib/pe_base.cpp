@@ -898,14 +898,31 @@ void pe_base::read_pe(std::istream& file, bool read_debug_raw_data)
                 pe_utils::align_down(s.get_pointer_to_raw_data(), get_file_alignment()) + s.get_size_of_raw_data() > static_cast<uint32_t>(filesize))
                 throw pe_exception("Incorrect section address or size", pe_exception::section_incorrect_addr_or_size);
 
+    	    uint32_t adress_of_section = 0;
+    	    uint32_t size_of_section = 0;
+    	    uint32_t alignment = 0;
+
+    	    if(get_size_of_image() == filesize)
+            {
+                adress_of_section = s.get_virtual_address();
+                size_of_section = s.get_virtual_size();
+        	    alignment = get_section_alignment();
+            }
+            else
+            {
+                adress_of_section = s.get_pointer_to_raw_data();
+                size_of_section = s.get_size_of_raw_data();
+                alignment = get_file_alignment();
+            }
+
             //Seek to section raw data
-            file.seekg(pe_utils::align_down(s.get_pointer_to_raw_data(), get_file_alignment()));
+            file.seekg(pe_utils::align_down(adress_of_section, alignment));
             if(file.bad() || file.fail())
                 throw pe_exception("Cannot reach section data", pe_exception::image_section_data_not_found);
 
             //Read section raw data
-            s.get_raw_data().resize(s.get_size_of_raw_data());
-            file.read(&s.get_raw_data()[0], s.get_size_of_raw_data());
+            s.get_raw_data().resize(size_of_section);
+            file.read(&s.get_raw_data()[0], size_of_section);
             if(file.bad() || file.fail())
                 throw pe_exception("Error reading section data", pe_exception::image_section_data_not_found);
         }
