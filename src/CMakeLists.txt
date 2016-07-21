@@ -15,7 +15,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${LIB_DIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${LIB_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${BIN_DIR}")
 
-set(COMPONENTS pe_lib tests samples)
+set(COMPONENTS pe_lib PeConverter tests samples)
 
 enable_testing()
 

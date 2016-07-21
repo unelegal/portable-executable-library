@@ -899,19 +899,18 @@ void pe_base::read_pe(std::istream& file, bool read_debug_raw_data)
                 throw pe_exception("Incorrect section address or size", pe_exception::section_incorrect_addr_or_size);
 
     	    uint32_t adress_of_section = 0;
-    	    uint32_t size_of_section = 0;
     	    uint32_t alignment = 0;
+    	    uint32_t size_of_section = s.get_size_of_raw_data();
 
+    	    //Detecting the file which dumped from memory
     	    if(get_size_of_image() == filesize)
             {
                 adress_of_section = s.get_virtual_address();
-                size_of_section = s.get_virtual_size();
                 alignment = get_section_alignment();
             }
             else
             {
                 adress_of_section = s.get_pointer_to_raw_data();
-                size_of_section = s.get_size_of_raw_data();
                 alignment = get_file_alignment();
             }
 
