@@ -475,6 +475,8 @@ public: //IMAGE
     //Helper function to recalculate RAW and virtual section sizes and strip it, if necessary
     //auto_strip = strip section, if necessary
     void recalculate_section_sizes(section& s, bool auto_strip);
+    //Returns nt headers data pointer
+    char* get_nt_headers_ptr();
 
     // ========== END OF PUBLIC MEMBERS AND STRUCTURES ========== //
 private:
@@ -508,8 +510,6 @@ private:
     void set_file_alignment_unchecked(uint32_t alignment);
     //Returns needed magic of image
     uint32_t get_needed_magic() const;
-    //Returns nt headers data pointer
-    char* get_nt_headers_ptr();
 
 private:
     static const uint16_t maximum_number_of_sections = 0x60;
