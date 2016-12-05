@@ -7,7 +7,7 @@ endif ()
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
 elseif(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Werror -fstrict-aliasing -pedantic-errors -pedantic")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Werror -fstrict-aliasing -pedantic-errors -pedantic -Wno-deprecated-declarations")
 endif()
 
 if(NOT DEFINED HEADERS)
