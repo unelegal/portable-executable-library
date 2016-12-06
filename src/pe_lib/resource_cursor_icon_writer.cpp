@@ -271,7 +271,7 @@ void resource_cursor_icon_writer::add_icon(const std::string& icon_file, const s
 {
     resource_directory_entry new_icon_group_entry;
     new_icon_group_entry.set_name(icon_group_name);
-    std::auto_ptr<resource_data_info> data_info;
+    std::unique_ptr<resource_data_info> data_info;
 
     try
     {
