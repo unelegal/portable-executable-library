@@ -1,0 +1,5 @@
+/obj/
+/lib/
+/bin/
+/build-*
+CMakeLists.txt.user
