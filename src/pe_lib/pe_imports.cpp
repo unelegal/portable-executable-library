@@ -348,6 +348,10 @@ const imported_functions_list get_imported_functions_base(const pe_base& pe)
                 //Move pointer
                 current_original_thunk_rva += sizeof(typename PEClassType::BaseSize);
 
+                // Jump to next DLL if last import entry from original IAT found
+                if (!lookup)
+                    break;
+
                 //Check if function is imported by ordinal
                 if((lookup & PEClassType::ImportSnapFlag) != 0)
                 {
