@@ -356,16 +356,17 @@ const resource_directory process_resource_directory(const pe_base& pe, uint32_t 
         resource_directory_entry entry;
 
         //If directory is named
-        if(dir_entry.NameEntry.NameIsString)
+        const auto& nameEntry = dir_entry.NameItem.NameEntry;
+        if(nameEntry.NameIsString)
         {
-            if(!pe_utils::is_sum_safe(res_rva + sizeof(uint16_t) /* safe */, dir_entry.NameEntry.NameOffset))
+            if(!pe_utils::is_sum_safe(res_rva + sizeof(uint16_t) /* safe */, nameEntry.NameOffset))
                 throw pe_exception("Incorrect resource directory", pe_exception::incorrect_resource_directory);
 
             //get directory name length
-            uint16_t directory_name_length = pe.section_data_from_rva<uint16_t>(res_rva + dir_entry.NameEntry.NameOffset, section_data_virtual, true);
+            uint16_t directory_name_length = pe.section_data_from_rva<uint16_t>(res_rva + nameEntry.NameOffset, section_data_virtual, true);
 
             //Check name length
-            if(pe.section_data_length_from_rva(res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)
+            if(pe.section_data_length_from_rva(res_rva + nameEntry.NameOffset + sizeof(uint16_t), res_rva + nameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)
                 < directory_name_length)
                 throw pe_exception("Incorrect resource directory", pe_exception::incorrect_resource_directory);
 
@@ -377,26 +378,27 @@ const resource_directory process_resource_directory(const pe_base& pe, uint32_t 
 #else
             //Set entry UNICODE name
             entry.set_name(pe_utils::from_ucs2(u16string(
-                reinterpret_cast<const unicode16_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
+                reinterpret_cast<const unicode16_t*>(pe.section_data_from_rva(res_rva + nameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
                 directory_name_length)));
 #endif
         }
         else
         {
             //Else - set directory ID
-            entry.set_id(dir_entry.Id);
+            entry.set_id(dir_entry.NameItem.Id);
         }
 
         //If directory entry has another resource directory
-        if(dir_entry.DirEntry.DataIsDirectory)
+        const auto& dirEntry = dir_entry.DirItem.DirEntry;
+        if(dirEntry.DataIsDirectory)
         {
-            entry.add_resource_directory(process_resource_directory(pe, res_rva, dir_entry.DirEntry.OffsetToDirectory, processed));
+            entry.add_resource_directory(process_resource_directory(pe, res_rva, dirEntry.OffsetToDirectory, processed));
         }
         else
         {
             //If directory entry has data
             image_resource_data_entry data_entry = pe.section_data_from_rva<image_resource_data_entry>(
-                res_rva + dir_entry.OffsetToData, section_data_virtual, true);
+                res_rva + dir_entry.DirItem.OffsetToData, section_data_virtual, true);
 
             //Check byte count that stated by data entry
             if(pe.section_data_length_from_rva(data_entry.OffsetToData, data_entry.OffsetToData, section_data_virtual, true) < data_entry.Size)
@@ -499,7 +501,7 @@ void rebuild_resource_directory(pe_base& pe, section& resource_section, resource
         image_resource_directory_entry entry;
         if((*it).is_named())
         {
-            entry.Name = 0x80000000 | (current_strings_pos - offset_from_section_start);
+            entry.NameItem.Name = 0x80000000 | (current_strings_pos - offset_from_section_start);
             uint16_t unicode_length = static_cast<uint16_t>((*it).get_name().length());
             memcpy(&raw_data[current_strings_pos], &unicode_length, sizeof(unicode_length));
             current_strings_pos += sizeof(unicode_length);
@@ -517,7 +519,7 @@ void rebuild_resource_directory(pe_base& pe, section& resource_section, resource
         }
         else
         {
-            entry.Name = (*it).get_id();
+            entry.NameItem.Name = (*it).get_id();
         }
 
         if((*it).includes_data())
@@ -528,7 +530,7 @@ void rebuild_resource_directory(pe_base& pe, section& resource_section, resource
             data_entry.Size = static_cast<uint32_t>((*it).get_data_entry().get_data().length());
             data_entry.OffsetToData = pe.rva_from_section_offset(resource_section, current_data_pos + sizeof(data_entry));
             
-            entry.OffsetToData = current_data_pos - offset_from_section_start;
+            entry.DirItem.OffsetToData = current_data_pos - offset_from_section_start;
 
             memcpy(&raw_data[current_data_pos], &data_entry, sizeof(data_entry));
             current_data_pos += sizeof(data_entry);
@@ -541,7 +543,7 @@ void rebuild_resource_directory(pe_base& pe, section& resource_section, resource
         }
         else
         {
-            entry.OffsetToData = 0x80000000 | (current_structures_pos - offset_from_section_start);
+            entry.DirItem.OffsetToData = 0x80000000 | (current_structures_pos - offset_from_section_start);
 
             memcpy(&raw_data[this_current_structures_pos], &entry, sizeof(entry));
             this_current_structures_pos += sizeof(entry);

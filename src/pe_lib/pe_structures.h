@@ -473,7 +473,7 @@ struct image_resource_directory_entry
         } NameEntry;
         uint32_t Name;
         uint16_t Id;
-    };
+    } NameItem;
 
     union
     {
@@ -483,7 +483,7 @@ struct image_resource_directory_entry
             uint32_t OffsetToDirectory:31;
             uint32_t DataIsDirectory:1;
         } DirEntry;
-    };
+    } DirItem;
 };
 
 struct image_resource_data_entry
