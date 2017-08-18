@@ -14,7 +14,7 @@ namespace pe_bliss
 using namespace pe_win;
 
 //Constructor
-pe_base::pe_base(std::istream& file, const pe_properties& props, bool read_debug_raw_data)
+pe_base::pe_base(std::istream& file, const pe_properties& props, bool is_file_from_mem, bool read_debug_raw_data)
 {
     props_ = props.duplicate().release();
 
@@ -27,7 +27,7 @@ pe_base::pe_base(std::istream& file, const pe_properties& props, bool read_debug
         file.exceptions(std::ios::goodbit);
         //Read DOS header, PE headers and section data
         read_dos_header(file);
-        read_pe(file, read_debug_raw_data);
+        read_pe(file, read_debug_raw_data, is_file_from_mem);
     }
     catch(const std::exception&)
     {
@@ -779,7 +779,7 @@ void pe_base::read_dos_header(std::istream& file)
 }
 
 //Reads PE image from istream
-void pe_base::read_pe(std::istream& file, bool read_debug_raw_data)
+void pe_base::read_pe(std::istream& file, bool read_debug_raw_data, bool is_file_from_mem)
 {
     //Get istream size
     std::streamoff filesize = pe_utils::get_file_size(file);
@@ -903,7 +903,7 @@ void pe_base::read_pe(std::istream& file, bool read_debug_raw_data)
     	    uint32_t size_of_section = s.get_size_of_raw_data();
 
     	    //Detecting the file which dumped from memory
-    	    if(get_size_of_image() == filesize)
+            if(is_file_from_mem)
             {
                 adress_of_section = s.get_virtual_address();
                 alignment = get_section_alignment();

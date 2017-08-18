@@ -33,7 +33,7 @@ class pe_base
 {
 public: //CONSTRUCTORS
     //Constructor from stream
-    pe_base(std::istream& file, const pe_properties& props, bool read_debug_raw_data = true);
+    pe_base(std::istream& file, const pe_properties& props, bool is_file_from_mem, bool read_debug_raw_data = true);
 
     //Constructor of empty PE-file
     explicit pe_base(const pe_properties& props, uint32_t section_alignment = 0x1000, bool dll = false, uint16_t subsystem = pe_win::image_subsystem_windows_gui);
@@ -500,7 +500,7 @@ private:
     void read_dos_header(std::istream& file);
 
     //Reads and checks PE headers and section headers, data
-    void read_pe(std::istream& file, bool read_debug_raw_data);
+    void read_pe(std::istream& file, bool read_debug_raw_data, bool is_file_from_mem);
 
     //Sets number of sections
     void set_number_of_sections(uint16_t number);
