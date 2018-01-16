@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 set(PROJECT pe_rebaser)
 
-include (${CMAKE_SOURCE_DIR}/config.cmake)
+include (${pe_lib_root_SOURCE_DIR}/config.cmake)
 
 add_executable(${PROJECT} ${HEADERS} ${SOURCES})
 
