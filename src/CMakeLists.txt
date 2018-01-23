@@ -2,11 +2,13 @@ cmake_minimum_required(VERSION 2.8)
 
 #common properties
 
+project(pe_lib_root)
+
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: Debug Release" FORCE)
 endif ()
 
-set(ROOT "${CMAKE_SOURCE_DIR}/..")
+set(ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
 set(OBJ_DIR "${ROOT}/obj/${CMAKE_BUILD_TYPE}")
 set(LIB_DIR "${ROOT}/lib/${CMAKE_BUILD_TYPE}")
 set(BIN_DIR "${ROOT}/bin/${CMAKE_BUILD_TYPE}")
