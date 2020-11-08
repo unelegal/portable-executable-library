@@ -373,7 +373,7 @@ const resource_directory process_resource_directory(const pe_base& pe, uint32_t 
 #ifdef PE_BLISS_WINDOWS
             //Set entry UNICODE name
             entry.set_name(std::wstring(
-                reinterpret_cast<const wchar_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
+                reinterpret_cast<const wchar_t*>(pe.section_data_from_rva(res_rva + dir_entry.NameItem.NameEntry.NameOffset + sizeof(uint16_t), section_data_virtual, true)),
                 directory_name_length));
 #else
             //Set entry UNICODE name
